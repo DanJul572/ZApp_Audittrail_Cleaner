@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - '@scarf/scarf'
+  - es5-ext
+  - esbuild
+  - unrs-resolver
