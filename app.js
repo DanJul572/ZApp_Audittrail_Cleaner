@@ -1,9 +1,16 @@
 require('./src/config/loadEnv');
 
 const db = require('./src/models');
-const rabbitmq = require('./src/helpers/rabbitmq');
 
-const consumers = require('./src/consumers');
+const jobs = require('./src/jobs');
+
+async function stop() {
+  try {
+    await db.sequelize.close();
+  } finally {
+    process.exit(0);
+  }
+}
 
 async function start() {
   try {
@@ -14,15 +21,10 @@ async function start() {
     process.exit(1);
   }
 
-  await consumers.cleanupConsumer.start();
-}
-
-async function stop() {
-  try {
-    await rabbitmq.close();
-    await db.sequelize.close();
-  } finally {
-    process.exit(0);
+  // The job is all this app does; with it disabled there is nothing to keep running for.
+  if (!jobs.logRetention.start()) {
+    console.log('Log retention is disabled (set LOG_RETENTION_ENABLED=true); nothing to do');
+    await stop();
   }
 }
 

@@ -1,9 +1,9 @@
 const cleanup = require('./cleanup');
 const database = require('./database');
-const rabbitmq = require('./rabbitmq');
+const logRetention = require('./logRetention');
 
 module.exports = {
   cleanup,
   database,
-  rabbitmq,
+  logRetention,
 };

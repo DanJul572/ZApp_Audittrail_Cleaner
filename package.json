@@ -2,7 +2,7 @@
   "name": "zapp-audittrail-cleaner",
   "version": "1.0.0",
   "private": true,
-  "description": "Deletes the ZApp data the worker app says is due: old audit trail rows for now, drafts and trash later.",
+  "description": "Deletes ZApp data past its retention on a schedule: old audit trail rows for now, drafts and trash later.",
   "scripts": {
     "build": "node esbuild.config.js",
     "dev": "cross-env NODE_ENV=development node app.js",
@@ -12,7 +12,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "amqplib": "^1.0.3",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "pg": "^8.20.0",
